@@ -82,8 +82,14 @@
     <string name="sinopsis">Sinopsis</string>
     <string name="gambar">Gambar</string>
     <string name="pilih_gambar">Pilih Gambar</string>
-    <string name="invalid">Invalid</string>
+    <string name="invalid">Data kosong, harap diisi</string>
     <string name="lainnya">Opsi lainnya</string>
     <string name="hapus">Hapus Buku</string>
     <string name="list_kosong">Belum ada data</string>
+
+<!--    Berita Detail Screen-->
+    <string name="todo">Apa yang harus dilakukan?</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="waktu">Waktu</string>
+
 </resources>

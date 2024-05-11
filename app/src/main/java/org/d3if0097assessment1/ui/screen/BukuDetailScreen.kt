@@ -7,9 +7,6 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -67,12 +64,13 @@ import androidx.navigation.compose.rememberNavController
 import org.d3if0097assessment1.R
 import org.d3if0097assessment1.database.BukuDb
 import org.d3if0097assessment1.ui.theme.Assessment1Theme
-import org.d3if0097assessment1.util.ViewModelFactory
+import org.d3if0097assessment1.util.ViewModelFactoryBuku
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
 const val KEY_ID_BUKU = "id"
+const val KEY_ID_BERITA = "id"
 
 @RequiresApi(Build.VERSION_CODES.P)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,8 +81,8 @@ fun BukuDetailScreen(
 ) {
     val context = LocalContext.current
     val db = BukuDb.getInstance(context)
-    val factory = ViewModelFactory(db.dao)
-    val viewModel: DetailViewModel = viewModel(factory = factory)
+    val factory = ViewModelFactoryBuku(db.bukuDao)
+    val viewModel: BukuViewModel = viewModel(factory = factory)
 
     var judul by remember { mutableStateOf("") }
     var penulis by remember { mutableStateOf("") }
@@ -165,7 +163,7 @@ fun BukuDetailScreen(
             )
         }
     ) { padding ->
-        FormMahasiswa(
+        FormBuku(
             judul = judul,
             onJudulChange = { judul = it },
             penulis = penulis,
@@ -180,7 +178,7 @@ fun BukuDetailScreen(
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun FormMahasiswa(
+fun FormBuku(
     judul: String,
     onJudulChange: (String) -> Unit,
     penulis: String,

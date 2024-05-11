@@ -70,7 +70,9 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     ksp("androidx.room:room-compiler:2.6.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

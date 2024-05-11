@@ -32,29 +32,25 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberImagePainter
 import org.d3if0097assessment1.R
 import org.d3if0097assessment1.database.BukuDb
-import org.d3if0097assessment1.model.Buku
-import org.d3if0097assessment1.model.GudangBuku
+import org.d3if0097assessment1.model.BeritaAcara
+import org.d3if0097assessment1.model.GudangBerita
 import org.d3if0097assessment1.navigation.Screen
 import org.d3if0097assessment1.ui.theme.Assessment1Theme
-import org.d3if0097assessment1.util.ViewModelFactoryBuku
+import org.d3if0097assessment1.util.ViewModelFactoryBerita
 
 @Composable
-fun BukuScreen(
+fun BeritaScreen(
     navHostController: NavHostController,
 ) {
     val context = LocalContext.current
@@ -66,7 +62,7 @@ fun BukuScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navHostController.navigate(Screen.FormBaruBuku.route)
+                    navHostController.navigate(Screen.FormBaruBerita.route)
                 }
             ) {
                 Icon(
@@ -77,7 +73,7 @@ fun BukuScreen(
             }
         }
     ) { contentPadding ->
-        SearchFieldComposeTheme(
+        SearchFieldComposeTheme1(
             navHostController,
             modifier = Modifier.padding(contentPadding)
         )
@@ -85,14 +81,14 @@ fun BukuScreen(
 }
 
 @Composable
-private fun SearchFieldComposeTheme(
+fun SearchFieldComposeTheme1(
     navHostController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     val content = LocalContext.current
     val db = BukuDb.getInstance(content)
-    val factory = ViewModelFactoryBuku(db.bukuDao)
-    val viewModel: GudangBuku = viewModel(factory = factory)
+    val factory = ViewModelFactoryBerita(db.beritaDao)
+    val viewModel: GudangBerita = viewModel(factory = factory)
     val data by viewModel.data.collectAsState()
     Column(
         modifier = modifier
@@ -117,8 +113,8 @@ private fun SearchFieldComposeTheme(
                 modifier = Modifier.padding(top = 8.dp)
             ) {
                 items(data) {
-                    BukuItem(buku = it) {
-                        navHostController.navigate(Screen.FormUbahBuku.withId(it.id))
+                    BeritaItem(beritaAcara = it) {
+                        navHostController.navigate(Screen.FormUbahBerita.withId(it.id))
                     }
                     Divider()
                 }
@@ -161,7 +157,7 @@ private fun SootheBottomNavigation(
             label = {
                 Text(stringResource(R.string.buku))
             },
-            selected = true,
+            selected = false,
             onClick = {
                 navHostController.navigate(Screen.Buku.route)
             }
@@ -176,7 +172,7 @@ private fun SootheBottomNavigation(
             label = {
                 Text(stringResource(R.string.berita_acara))
             },
-            selected = false,
+            selected = true,
             onClick = {
                 navHostController.navigate(Screen.Berita.route)
             }
@@ -228,12 +224,10 @@ private fun SootheBottomNavigation(
 //}
 
 @Composable
-private fun BukuItem(
-    buku: Buku,
-    onClick: () -> Unit
+fun BeritaItem(
+    beritaAcara: BeritaAcara,
+    onClick: () -> Unit,
 ) {
-    val painter = rememberImagePainter(buku.gambar)
-
     Card(
         modifier = Modifier
             .width(175.dp),
@@ -243,41 +237,34 @@ private fun BukuItem(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Column {
-                Image(
-                    painter = painter,
-                    contentDescription = buku.judul,
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(MaterialTheme.shapes.small)
+            Column(
+                modifier = Modifier
+                    .padding(bottom = 16.dp, start = 16.dp)
+                    .width(245.dp)
+                    .clickable { onClick() }
+            ) {
+                Text(
+                    text = beritaAcara.todo,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
                 )
-                Column(
-                    modifier = Modifier
-                        .padding(bottom = 16.dp, start = 16.dp)
-                        .width(245.dp)
-                        .clickable { onClick() }
-                ) {
-                    Text(
-                        text = buku.judul,
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = buku.penulis,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+                Text(
+                    text = beritaAcara.tanggal,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    text = beritaAcara.jam,
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun BukuPreview() {
+fun KalenderPreview() {
     Assessment1Theme {
-        BukuScreen(rememberNavController())
+        BeritaScreen(rememberNavController())
     }
 }

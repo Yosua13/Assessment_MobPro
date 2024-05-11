@@ -1,6 +1,5 @@
 package org.d3if0097assessment1.ui.screen
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -8,7 +7,7 @@ import kotlinx.coroutines.launch
 import org.d3if0097assessment1.database.BukuDao
 import org.d3if0097assessment1.model.Buku
 
-class DetailViewModel(private val dao: BukuDao) : ViewModel() {
+class BukuViewModel(private val dao: BukuDao) : ViewModel() {
     fun insert(judul: String, penulis: String, sinopsis: String, gambar: String) {
         val buku = Buku(
             judul = judul,
