@@ -24,7 +24,7 @@ import org.d3if0097assessment1.ui.screen.RegisterScreen
 fun SetupNavigationGraph(navHostController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Buku.route
+        startDestination = Screen.Login.route
     ) {
         composable(route = Screen.Login.route) {
             LoginScreen(navHostController)
