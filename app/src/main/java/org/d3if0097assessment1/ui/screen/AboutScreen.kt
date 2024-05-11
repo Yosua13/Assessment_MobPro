@@ -89,7 +89,7 @@ private fun SootheBottomNavigation(navHostController: NavHostController, modifie
             },
             selected = false,
             onClick = {
-                navHostController.navigate(Screen.Home.route)
+                navHostController.navigate(Screen.Buku.route)
             }
         )
         NavigationBarItem(

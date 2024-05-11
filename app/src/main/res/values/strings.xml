@@ -55,11 +55,16 @@
     <string name="sinopsis8">Kita telah mendengar kisah Ayub. Kekayaannya hancur, keluarganya diambil, dan tubuhnya sendiri menderita. Kita hanya bisa membayangkan betapa dalamnya kehilangan dan rasa sakitnya. Namun, saat kita merenungkan penderitaan Ayub, apakah kita melihat benang kemurahan Tuhan di dalamnya? Kita semua akan menghadapi penderitaan pada suatu saat dalam hidup kita. Hal ini tidak bisa dihindari. Namun apa yang membuat bencana bisa bertahan bukan karena Allah turut merasakan keterkejutan yang kita alami, namun melalui setiap kobaran api kesakitan dan banjir ketakutan, kedaulatan kebaikan-Nya menopang kita.
         \n\nPuisi interpretatif John Piper bersama dengan visual menakjubkan fotografer Ric Ergenbright, mengingatkan Anda akan fakta tak tergoyahkan bahwa Tuhan mengatur segala sesuatu untuk tujuan baik-Nya. Biarkan mata Anda melihat seluruh kehidupan – dan Tuhan sendiri – dengan cara yang baru dan penuh kuasa. Dan biarkanlah rohmu beristirahat, mengetahui bahwa Tuhan tidak saja berdaulat, namun juga manis.
     </string>
+    <string name="belum_bisa">Belum Bisa</string>
+    <string name="tambahan_buku">Tambah Buku</string>
 
 <!--    Tentang Kami-->
     <string name="kumpulan_buku">Kumpulan Buku Gereja</string>
     <string name="utama">Utama</string>
     <string name="about">Tentang Kami</string>
+    <string name="buku">Buku</string>
+    <string name="data_diri">Data Diri</string>
+    <string name="berita_acara">Berita Acara</string>
     <string name="tentang_kami">
 "Gereja Ku" adalah aplikasi mobile yang bertujuan untuk menyediakan informasi tentang gereja-gereja yang ada di kota Bandung, Indonesia. Dengan aplikasi ini, pengguna dapat dengan mudah menemukan
         informasi tentang lokasi gereja, jadwal ibadah, aktivitas gereja, dan kontak yang dapat dihubungi. Aplikasi ini memungkinkan pengguna untuk mencari gereja berdasarkan lokasi, denominasi, atau layanan
@@ -67,4 +72,18 @@
         yang sesuai dengan kebutuhan dan preferensi mereka, serta memfasilitasi keterlibatan dalam kegiatan keagamaan dan komunitas gereja di kota Bandung.
     </string>
     <string name="back">Kembali</string>
+
+<!--    Buku Detail Screen-->
+    <string name="kembali">Kembali</string>
+    <string name="edit_buku">Ubah Buku</string>
+    <string name="simpan">Simpan</string>
+    <string name="judul">Judul</string>
+    <string name="penulis">Penulis</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="gambar">Gambar</string>
+    <string name="pilih_gambar">Pilih Gambar</string>
+    <string name="invalid">Invalid</string>
+    <string name="lainnya">Opsi lainnya</string>
+    <string name="hapus">Hapus Buku</string>
+    <string name="list_kosong">Belum ada data</string>
 </resources>

@@ -137,7 +137,7 @@ fun LoginScreen(
                     return@Button
                 }
                 val message = "Hi, Selamat Datang di Gereja Ku"
-                navHostController.navigate(Screen.Home.route)
+                navHostController.navigate(Screen.Buku.route)
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier
