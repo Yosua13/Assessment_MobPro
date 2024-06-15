@@ -1,4 +1,4 @@
-package org.d3if0097assessment1.ui.screen
+package org.d3if0097assessment1.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -10,5 +10,6 @@ data class BeritaAcara(
     val id: Long = 0L,
     val todo: String,
     val tanggal: String,
-    val jam: String
+    val jam: String,
+    val description: String? = null // Kolom baru ditambahkan
 )

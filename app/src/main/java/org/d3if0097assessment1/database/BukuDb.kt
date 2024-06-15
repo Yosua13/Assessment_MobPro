@@ -7,23 +7,28 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.d3if0097assessment1.model.BeritaAcara
-import org.d3if0097assessment1.model.Buku
 
-@Database(entities = [Buku::class, BeritaAcara::class], version = 2, exportSchema = false)
+@Database(entities = [BeritaAcara::class], version = 3, exportSchema = false)
 abstract class BukuDb : RoomDatabase() {
-    abstract val bukuDao: BukuDao
     abstract val beritaDao: BeritaDao
 
     companion object {
         @Volatile
         private var INSTANCE: BukuDb? = null
+
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS berita_acara (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                         "todo TEXT NOT NULL," +
-                        "kalender TEXT NOT NULL," +
+                        "tanggal TEXT NOT NULL," +
                         "jam TEXT NOT NULL)")
+            }
+        }
+
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE berita_acara ADD COLUMN description TEXT")
             }
         }
 
@@ -37,7 +42,7 @@ abstract class BukuDb : RoomDatabase() {
                         BukuDb::class.java,
                         "gerejaku.db"
                     )
-                        .addMigrations(MIGRATION_1_2)  // Tambahkan migrasi ke sini
+                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)  // Tambahkan semua migrasi di sini
                         .build()
                     INSTANCE = instance
                 }
@@ -46,3 +51,5 @@ abstract class BukuDb : RoomDatabase() {
         }
     }
 }
+
+

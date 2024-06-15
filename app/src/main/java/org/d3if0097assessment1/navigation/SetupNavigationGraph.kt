@@ -9,14 +9,11 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import org.d3if0097assessment1.ui.screen.AboutScreen
 import org.d3if0097assessment1.ui.screen.BeritaDetailScreen
 import org.d3if0097assessment1.ui.screen.BeritaScreen
-import org.d3if0097assessment1.ui.screen.BukuDetailScreen
-import org.d3if0097assessment1.ui.screen.BukuScreen
 import org.d3if0097assessment1.ui.screen.KEY_ID_BERITA
-import org.d3if0097assessment1.ui.screen.KEY_ID_BUKU
 import org.d3if0097assessment1.ui.screen.LoginScreen
+import org.d3if0097assessment1.ui.screen.MainScreen
 import org.d3if0097assessment1.ui.screen.RegisterScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -33,27 +30,10 @@ fun SetupNavigationGraph(navHostController: NavHostController = rememberNavContr
             RegisterScreen(navHostController)
         }
         composable(route = Screen.Buku.route) {
-            BukuScreen(navHostController)
+            MainScreen(navHostController)
         }
         composable(route = Screen.Berita.route) {
             BeritaScreen(navHostController)
-        }
-        composable(route = Screen.About.route) {
-            AboutScreen(navHostController)
-        }
-        composable(route = Screen.FormBaruBuku.route) {
-            BukuDetailScreen(navHostController)
-        }
-        composable(
-            route = Screen.FormUbahBuku.route,
-            arguments = listOf(
-                navArgument(KEY_ID_BUKU) {
-                    type = NavType.LongType
-                }
-            )
-        ) { navBackStackEntry ->
-            val id = navBackStackEntry.arguments?.getLong(KEY_ID_BUKU)
-            BukuDetailScreen(navHostController, id)
         }
         composable(route = Screen.FormBaruBerita.route) {
             BeritaDetailScreen(navHostController)

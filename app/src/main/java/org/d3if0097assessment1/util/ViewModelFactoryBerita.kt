@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.d3if0097assessment1.database.BeritaDao
 import org.d3if0097assessment1.model.GudangBerita
-import org.d3if0097assessment1.ui.screen.BeritaViewModel
+import org.d3if0097assessment1.viewmodel.BeritaViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactoryBerita(
