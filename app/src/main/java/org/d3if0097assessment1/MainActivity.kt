@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import org.d3if0097assessment1.navigation.SetupNavigationGraph
 import org.d3if0097assessment1.ui.screen.MainScreen
+import org.d3if0097assessment1.ui.screen.OnboardingPage
 import org.d3if0097assessment1.ui.theme.Assessment1Theme
 
 class MainActivity : ComponentActivity() {

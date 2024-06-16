@@ -68,8 +68,8 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.ui:ui-tooling:1.6.7")
-    implementation("androidx.compose.ui:ui:1.6.7")
+    implementation("androidx.compose.ui:ui-tooling:1.6.8")
+    implementation("androidx.compose.ui:ui:1.6.8")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
@@ -87,14 +87,20 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
     implementation("io.coil-kt:coil-compose:2.6.0")
 
-//    implementation ("androidx.compose.animation:animation:1.6.7")
-//    implementation ("androidx.compose.foundation:foundation:1.6.7")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
 
     implementation("androidx.credentials:credentials:1.2.2")
     implementation("androidx.credentials:credentials-play-services-auth:1.2.2")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("com.vanniktech:android-image-cropper:4.5.0")
+
+    implementation("androidx.compose.material:material:1.6.7")
+    implementation("com.google.accompanist:accompanist-pager:0.24.13-rc")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.24.13-rc")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

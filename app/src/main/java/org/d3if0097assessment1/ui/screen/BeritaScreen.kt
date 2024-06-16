@@ -33,6 +33,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -44,11 +47,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.d3if0097assessment1.R
 import org.d3if0097assessment1.database.BukuDb
 import org.d3if0097assessment1.model.BeritaAcara
 import org.d3if0097assessment1.model.GudangBerita
+import org.d3if0097assessment1.model.User
 import org.d3if0097assessment1.navigation.Screen
+import org.d3if0097assessment1.navigation.UserDataStore
 import org.d3if0097assessment1.ui.theme.Assessment1Theme
 import org.d3if0097assessment1.util.ViewModelFactoryBerita
 
@@ -57,11 +65,75 @@ fun BeritaScreen(
     navHostController: NavHostController,
 ) {
     val context = LocalContext.current
+    val dataStore = UserDataStore(context)
+    val user by dataStore.userFlow.collectAsState(User())
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = { TopAppBarBerita() },
         bottomBar = {
-            SootheBottomNavigation(navHostController)
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                modifier = Modifier
+            ) {
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Book,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(stringResource(R.string.buku))
+                    },
+                    selected = false,
+                    onClick = {
+                        navHostController.navigate(Screen.Buku.route)
+                    }
+                )
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Newspaper,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(stringResource(R.string.berita_acara))
+                    },
+                    selected = true,
+                    onClick = {
+                        navHostController.navigate(Screen.Berita.route)
+                    }
+                )
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            painter = painterResource(R.drawable.account_circle),
+                            contentDescription = stringResource(R.string.profil)
+                        )
+                    },
+                    label = {
+                        Text(
+                            stringResource(R.string.data_diri)
+                        )
+                    },
+                    selected = false,
+                    onClick = {
+                        if (user.email.isEmpty()) {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                signIn(
+                                    context,
+                                    dataStore,
+                                    navHostController
+                                )
+                            }
+                        } else {
+                            showDialog = true
+                        }
+                    }
+                )
+            }
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -132,56 +204,7 @@ private fun SootheBottomNavigation(
     navHostController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        modifier = modifier
-    ) {
-        NavigationBarItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Book,
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(stringResource(R.string.buku))
-            },
-            selected = false,
-            onClick = {
-                navHostController.navigate(Screen.Buku.route)
-            }
-        )
-        NavigationBarItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Newspaper,
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(stringResource(R.string.berita_acara))
-            },
-            selected = true,
-            onClick = {
-                navHostController.navigate(Screen.Berita.route)
-            }
-        )
-        NavigationBarItem(
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = null
-                )
-            },
-            label = {
-                Text(stringResource(R.string.data_diri))
-            },
-            selected = false,
-            onClick = {
 
-            }
-        )
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

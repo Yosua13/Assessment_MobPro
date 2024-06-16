@@ -35,6 +35,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -87,6 +88,15 @@ fun LoginScreen(
 
     var passwordVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+
+    // Check if the user is already logged in with Google
+    LaunchedEffect(user.email) {
+        if (user.email.isNotEmpty()) {
+            navHostController.navigate(Screen.Buku.route) {
+                popUpTo(Screen.Login.route) { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = modifier

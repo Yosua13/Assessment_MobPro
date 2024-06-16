@@ -36,21 +36,15 @@ import org.d3if0097assessment1.ui.theme.Assessment1Theme
 
 @Composable
 fun BukuDialog(
-    bitmap: Bitmap?,
-    onDismissRequest: () -> Unit,
-    onConfirmation: (String, String) -> Unit
+    bitmap: Bitmap?, onDismissRequest: () -> Unit, onConfirmation: (String) -> Unit
 ) {
-    var judul by remember { mutableStateOf("") }
-    var deskripsi by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
 
     Dialog(onDismissRequest = { onDismissRequest() }) {
-        Card(
-            modifier = Modifier.padding(16.dp),
-            shape = RoundedCornerShape(16.dp)
-        ) {
+        Card(modifier = Modifier.padding(16.dp), shape = RoundedCornerShape(16.dp)) {
             Column(
                 modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Image(
                     bitmap = bitmap!!.asImageBitmap(),
@@ -59,24 +53,13 @@ fun BukuDialog(
                         .fillMaxWidth()
                         .aspectRatio(1f)
                 )
-                OutlinedTextField(
-                    value = judul,
-                    onValueChange = { judul = it },
-                    label = { Text(text = stringResource(R.string.nama)) },
-                    maxLines = 1,
+                OutlinedTextField(value = description,
+                    onValueChange = { description = it },
+                    label = { Text(text = "Deskripsi") },
+                    maxLines = 3,
+                    singleLine = false,
                     keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.Words,
-                        imeAction = ImeAction.Next
-                    ),
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                OutlinedTextField(
-                    value = deskripsi,
-                    onValueChange = { deskripsi = it },
-                    label = { Text(text = stringResource(R.string.nama_latin)) },
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.Words,
-                        imeAction = ImeAction.Done
+                        capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Next
                     ),
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -87,14 +70,13 @@ fun BukuDialog(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     OutlinedButton(
-                        onClick =  { onDismissRequest },
-                        modifier = Modifier.padding(8.dp)
+                        onClick = { onDismissRequest() }, modifier = Modifier.padding(8.dp)
                     ) {
                         Text(text = stringResource(R.string.batal))
                     }
                     OutlinedButton(
-                        onClick =  { onConfirmation(judul, deskripsi) },
-                        enabled = judul.isNotEmpty() && deskripsi.isNotEmpty(),
+                        onClick = { onConfirmation(description) },
+                        enabled = description.isNotEmpty(),
                         modifier = Modifier.padding(8.dp)
                     ) {
                         Text(text = stringResource(R.string.simpan))
@@ -111,10 +93,6 @@ fun BukuDialog(
 @Composable
 fun AddDialogPreview() {
     Assessment1Theme {
-        BukuDialog(
-            bitmap = null,
-            onDismissRequest = {},
-            onConfirmation = { _, _-> }
-        )
+        BukuDialog(bitmap = null, onDismissRequest = {}, onConfirmation = { _ -> })
     }
 }

@@ -12,17 +12,17 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.d3if0097assessment1.model.Book
-import org.d3if0097assessment1.network.Api
 import org.d3if0097assessment1.network.ApiStatus
+import org.d3if0097assessment1.network.LogDayApi
 import java.io.ByteArrayOutputStream
 
 class MainViewModel : ViewModel() {
-
     var data = mutableStateOf(emptyList<Book>())
         private set
 
     var status = MutableStateFlow(ApiStatus.LOADING)
         private set
+
     var errorMessage = mutableStateOf<String?>(null)
         private set
 
@@ -30,30 +30,45 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             status.value = ApiStatus.LOADING
             try {
-                data.value = Api.service.getApi(userId)
+                data.value = LogDayApi.service.getLogDay(userId).data
                 status.value = ApiStatus.SUCCESS
             } catch (e: Exception) {
-                Log.d("MainViewModel", "Failure: ${e.message}")
+                Log.d("MainViewModel.retrieveData", "Failure: ${e.message}")
                 status.value = ApiStatus.FAILED
             }
         }
     }
-    fun saveData(userId: String, judul: String, deskripsi: String, bitmap: Bitmap) {
+
+    fun saveData(userId: String, description: String, bitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = Api.service.postBuku(
-                    userId,
-                    judul.toRequestBody("text/plain".toMediaTypeOrNull()),
-                    deskripsi.toRequestBody("text/plain".toMediaTypeOrNull()),
-                    bitmap.toMultipartBody()
+                val result = LogDayApi.service.postLogDay(
+                    bitmap.toMultipartBody(),
+                    userId.toRequestBody("text/plain".toMediaTypeOrNull()),
+                    description.toRequestBody("text/plain".toMediaTypeOrNull()),
                 )
 
-                if (result.status == "success")
-                    retrieveData(judul)
-                else
-                    throw Exception(result.message)
+                if (result.statusCode == 201) retrieveData(userId)
+                else throw Exception(result.message)
             } catch (e: Exception) {
-                Log.d("MainViewModel", "Failure: ${e.message}")
+                Log.d("MainViewModel.saveData", e.toString())
+                Log.d("MainViewModel.saveData", "Failure: ${e.message}")
+                errorMessage.value = "Error: ${e.message}"
+            }
+        }
+    }
+
+    fun deleteData(userEmail: String, imageId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = LogDayApi.service.deleteLogDay(
+                    imageId,
+                )
+
+                if (result.statusCode == 200) retrieveData(userEmail)
+                else throw Exception(result.message)
+            } catch (e: Exception) {
+                Log.d("MainViewModel.deleteData", "Failure: ${e.message}")
                 errorMessage.value = "Error: ${e.message}"
             }
         }
